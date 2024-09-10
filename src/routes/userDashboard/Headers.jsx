@@ -1,6 +1,8 @@
-import { useEffect, useMemo } from "react";import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import bg from "../../assets/img/dashboardbg.png";
-
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import logo from "../../assets/img/logo.png";
 function Headers() {
 	const navigate = useNavigate();
 
@@ -17,6 +19,16 @@ function Headers() {
 	return (
 		<>
 			<div className="relative h-64">
+				<div className="flex flex-row justify-between mx-4 mt-8 z-50 items-center">
+					<Link to={"/"}>
+						<ExitToAppIcon className="text-red-700 " />
+					</Link>
+					<img
+						src={logo}
+						alt=""
+						className="w-8 rounded-full"
+					/>
+				</div>
 				<img
 					src={bg}
 					alt=""
