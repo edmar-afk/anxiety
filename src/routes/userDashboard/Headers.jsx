@@ -20,7 +20,7 @@ function Headers() {
 		<>
 			<div className="relative h-64">
 				<div className="flex flex-row justify-between mx-4 mt-8 z-50 items-center">
-					<Link to={"/"}>
+					<Link to={"/logout"}>
 						<ExitToAppIcon className="text-red-700 " />
 					</Link>
 					<img
