@@ -89,7 +89,7 @@ function Body() {
 							)
 						)
 					) : (
-						<p className="text-gray-500 text-center">Start a conversation by clicking a question below!</p>
+						<p className="text-gray-500 text-center">Start a conversation by tapping the question below!</p>
 					)}
 					{/* Empty div to ensure scroll to bottom */}
 					<div ref={messagesEndRef} />
