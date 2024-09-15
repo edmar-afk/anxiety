@@ -1,5 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from "react";
-
 function Hero() {
 	const [greeting, setGreeting] = useState("");
 
@@ -22,6 +22,10 @@ function Hero() {
 		<>
 			<div className="my-4 p-4">
 				<p className="font-bold">{greeting}</p>
+				<p className="text-xs">
+					Welcome! I'm really glad you're here. It sounds like you might be going through some tough times, and that's
+					completely okay. You're not alone, and it's perfectly normal to feel stressed or anxious.
+				</p>
 			</div>
 		</>
 	);
