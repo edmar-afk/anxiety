@@ -19,7 +19,7 @@ function Header() {
 						<div className="text-sm mt-1 flex items-center">
 							<span className="text-blue-700 mr-3">Anxiety Ally</span>
 						</div>
-						<span className="text-xs text-blue-800">Chatbot</span>
+						<span className="text-xs text-blue-100">Chatbot</span>
 					</div>
 				</div>
 				<div className="flex items-center space-x-2 mr-4">

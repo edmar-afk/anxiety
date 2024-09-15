@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */import { useState, useRef, useEffect } from "react";import Header from "./Header";
-import Sender from "./Sender";
+/* eslint-disable no-unused-vars */import { useState, useRef, useEffect } from "react";import Header from "./Header";import Sender from "./Sender";
 import Receiver from "./Receiver";
 import questions from "../../assets/choices";
 import api from "../../assets/api"; // Assuming this is a utility for making API requests
@@ -69,9 +68,10 @@ function Body() {
 		<>
 			<div className="flex-1  justify-between flex flex-col h-full">
 				<Header />
+				<div className="bg-black/60 w-full h-screen fixed -z-50"></div>
 				<div
 					id="messages"
-					className="flex flex-col bg-black/60 justify-end h-full space-y-4 px-4 pb-44 pt-44 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+					className="flex flex-col justify-end h-full space-y-4 px-4 pb-44 pt-44 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
 					{/* Map over the conversation history and render Sender/Receiver based on who sent the message */}
 					{conversation.length > 0 ? (
 						conversation.map((msg, index) =>
@@ -88,19 +88,19 @@ function Body() {
 							)
 						)
 					) : (
-						<p className="text-gray-500 text-center mt-52">Start a conversation by tapping the question below!</p>
+						<p className="text-white text-center mt-44">Start a conversation by tapping the question below!</p>
 					)}
 					{/* Empty div to ensure scroll to bottom */}
 					<div ref={messagesEndRef} />
 				</div>
 
-				<div className="fixed bottom-0 bg-black/70 backdrop-blur-xl p-2 pt-4  sm:mb-0 w-full">
+				<div className="fixed bottom-0 bg-black/70 backdrop-blur-xl p-2 pt-4 sm:mb-0 w-full">
 					<div className="flex flex-row overflow-x-scroll space-x-4">
 						{/* Render the list of questions */}
 						{questions.map((question) => (
 							<div
 								key={question.id}
-								className="text-base bg-blue-600 text-white p-2 rounded-lg w-44 flex justify-center items-center text-center flex-shrink-0 cursor-pointer"
+								className="text-xs bg-blue-600 text-white p-2 rounded-lg w-44 flex justify-center items-center text-center flex-shrink-0 cursor-pointer"
 								onClick={() => handleQuestionClick(question.question)} // Handle click
 							>
 								{question.question}
