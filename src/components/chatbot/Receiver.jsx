@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import comfortBot from "../../assets/img/comfortBot.png";
+/* eslint-disable react/prop-types */import comfortBot from "../../assets/img/comfortBot.png";
 
 function Receiver({msg}) {
 	return (
@@ -8,9 +7,8 @@ function Receiver({msg}) {
 				<div className="flex items-end">
 					<div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
 						<div>
-							<span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
-								{msg}
-							</span>
+							<span className="text-xs font-bold">Anxiety Ally</span>
+							<span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">{msg}</span>
 						</div>
 					</div>
 					<img

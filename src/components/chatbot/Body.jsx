@@ -1,5 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { useState } from "react";import Header from "./Header";import Sender from "./Sender";
+/* eslint-disable no-unused-vars */import { useState, useRef, useEffect } from "react";
+import Header from "./Header";
+import Sender from "./Sender";
 import Receiver from "./Receiver";
 import questions from "../../assets/choices";
 import api from "../../assets/api"; // Assuming this is a utility for making API requests
@@ -8,6 +9,7 @@ function Body() {
 	const [userQuestion, setUserQuestion] = useState(""); // Store user question
 	const [botResponse, setBotResponse] = useState(""); // Store chatbot response
 	const [conversation, setConversation] = useState([]); // Store the entire conversation history
+	const messagesEndRef = useRef(null); // Ref for the end of the messages container
 
 	// Function to handle sending the question to the API
 	const handleQuestionClick = async (question) => {
@@ -34,7 +36,7 @@ function Body() {
 						updatedConversation[updatedConversation.length - 1].message = botMessage;
 						return updatedConversation;
 					});
-				}, 2000); 
+				}, 2000);
 			} else {
 				// Handle error response
 				setTimeout(() => {
@@ -57,13 +59,20 @@ function Body() {
 		}
 	};
 
+	// Scroll to bottom whenever conversation changes
+	useEffect(() => {
+		if (messagesEndRef.current) {
+			messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [conversation]);
+
 	return (
 		<>
-			<div className="flex-1 p-2 sm:p-6 justify-between flex flex-col h-screen">
+			<div className="flex-1 p-2 sm:p-6 justify-between flex flex-col h-full">
 				<Header />
 				<div
 					id="messages"
-					className="flex flex-col justify-end h-full space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+					className="flex flex-col justify-end h-full space-y-4 p-3 pb-44 pt-44 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
 					{/* Map over the conversation history and render Sender/Receiver based on who sent the message */}
 					{conversation.length > 0 ? (
 						conversation.map((msg, index) =>
@@ -82,8 +91,11 @@ function Body() {
 					) : (
 						<p className="text-gray-500 text-center">Start a conversation by clicking a question below!</p>
 					)}
+					{/* Empty div to ensure scroll to bottom */}
+					<div ref={messagesEndRef} />
 				</div>
-				<div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0 w-full">
+
+				<div className="fixed bottom-0 bg-white border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0 w-full">
 					<div className="flex flex-row overflow-x-scroll space-x-4">
 						{/* Render the list of questions */}
 						{questions.map((question) => (
