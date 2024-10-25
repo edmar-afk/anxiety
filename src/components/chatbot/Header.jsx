@@ -6,7 +6,7 @@ function Header() {
 		<>
 			<Link
 				to={"/user-dashboard"}
-				className="fixed left-0 top-0 px-3 bg-black/70 backdrop-blur-xl w-full flex sm:items-center justify-between py-3 pt-8">
+				className="fixed left-0 top-0 px-3 bg-white/70 backdrop-blur-xl w-full flex sm:items-center justify-between py-3 pt-8">
 				<div className="relative flex items-center space-x-4 nb">
 					<div className="relative">
 						<img

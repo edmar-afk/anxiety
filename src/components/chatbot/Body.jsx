@@ -1,78 +1,140 @@
-/* eslint-disable no-unused-vars */ import { useState, useRef, useEffect } from "react";
+/* eslint-disable no-unused-vars */import { useState, useRef, useEffect } from "react";
 import Header from "./Header";
 import Sender from "./Sender";
 import Receiver from "./Receiver";
 import questions from "../../assets/choices";
-import api from "../../assets/api"; 
-import BotPress from './BotPress'
+import api from "../../assets/api";
+import Choices from "./Choices";
 
 function Body() {
-	const [userQuestion, setUserQuestion] = useState(""); // Store user question
-	const [botResponse, setBotResponse] = useState(""); // Store chatbot response
-	const [conversation, setConversation] = useState([]); // Store the entire conversation history
-	const messagesEndRef = useRef(null); // Ref for the end of the messages container
+	const [conversation, setConversation] = useState([]); // State to store conversation
+	const [inputMessage, setInputMessage] = useState(""); // State for the input field
+	const [loading, setLoading] = useState(false); // Loading state for bot response
+	const [errorMessage, setErrorMessage] = useState(""); // Error message state
+	const bottomRef = useRef(null); // Reference for the bottom of the conversation
 
-	// Function to handle sending the question to the API
+	// Handle sending the question to the API
 	const handleQuestionClick = async (question) => {
-		setUserQuestion(question); // Update with user's question
+		const timeSent = new Date().toLocaleTimeString(); // Get current time
 
-		// Add user's question to the conversation history
-		setConversation((prev) => [...prev, { sender: "user", message: question }]);
+		// Add the user's question to the conversation
+		setConversation((prevConversation) => [...prevConversation, { sender: "user", content: question, timeSent }]);
 
-		// Set loading state to true and add "Searching..." to the conversation
-		setConversation((prev) => [...prev, { sender: "bot", message: "Searching for an answer, please hold on…" }]);
+		setLoading(true); // Start loading state for bot response
+		setErrorMessage(""); // Clear any previous error message
 
 		try {
-			const response = await api.post("/api/chatbot/", {
-				question, // Send the question to the chatbot API
-			});
+			const result = await api.post("/api/chatbot/", { question });
 
-			if (response.status === 200) {
-				const botMessage = response.data.answer;
-
-				// Introduce a 1.5-second delay before updating with the actual response
-				setTimeout(() => {
-					setConversation((prev) => {
-						const updatedConversation = [...prev];
-						updatedConversation[updatedConversation.length - 1].message = botMessage;
-						return updatedConversation;
-					});
-				}, 2000);
-			} else {
-				// Handle error response
-				setTimeout(() => {
-					setConversation((prev) => {
-						const updatedConversation = [...prev];
-						updatedConversation[updatedConversation.length - 1].message = "Something went wrong. Please try again.";
-						return updatedConversation;
-					});
-				}, 1500); // 1.5 seconds delay
-			}
+			// Add the bot's response to the conversation with time sent
+			setConversation((prevConversation) => [
+				...prevConversation,
+				{ sender: "bot", content: result.data.answer, timeSent: new Date().toLocaleTimeString() },
+			]);
 		} catch (error) {
-			// Handle network error
-			setTimeout(() => {
-				setConversation((prev) => {
-					const updatedConversation = [...prev];
-					updatedConversation[updatedConversation.length - 1].message = "Error communicating with the chatbot.";
-					return updatedConversation;
-				});
-			}, 1500); // 1.5 seconds delay
+			console.error(error);
+			setErrorMessage("Failed to fetch bot response. Please try again.");
+			setConversation((prevConversation) => [
+				...prevConversation,
+				{ sender: "bot", content: "Error fetching response", timeSent: new Date().toLocaleTimeString() },
+			]);
+		} finally {
+			setLoading(false); // End loading state
 		}
 	};
 
-	// Scroll to bottom whenever conversation changes
-	useEffect(() => {
-		if (messagesEndRef.current) {
-			messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+	// Handle sending the message from the input field
+	const handleSendMessage = () => {
+		if (inputMessage.trim()) {
+			handleQuestionClick(inputMessage); // Reuse the same logic for input field submission
+			setInputMessage(""); // Clear the input field after sending
 		}
+	};
+
+	// Scroll to the bottom when the conversation updates
+	useEffect(() => {
+		bottomRef.current?.scrollIntoView({ behavior: "smooth" });
 	}, [conversation]);
 
 	return (
 		<>
 			<div className="flex-1  justify-between flex flex-col h-full">
 				<Header />
-				<div className="bg-black/60 w-full h-screen fixed -z-50"></div>
-				<BotPress />
+				<div className="bg-white/60 w-full h-screen fixed -z-50"></div>
+
+				{/* Display the conversation between user and bot */}
+				<div className="p-4 overflow-y-auto flex flex-col pt-44 pb-24">
+					
+					{conversation.map((message, index) =>
+						message.sender === "user" ? (
+							<Sender
+								key={index}
+								message={message.content}
+							/>
+						) : (
+							<Receiver
+								key={index}
+								message={message.content}
+							/>
+						)
+					)}
+					{/* Invisible div to maintain scroll position */}
+					<div ref={bottomRef} />
+				</div>
+
+				{/* Display error message if any */}
+				{errorMessage && <p className="text-red-500 text-center mb-4">{errorMessage}</p>}
+
+				{/* Display loading indicator when the bot is processing */}
+				{loading && <p className="text-green-500 text-center mb-4">Bot is thinking...</p>}
+
+				<Choices handleQuestionClick={handleQuestionClick} />
+
+				<form
+					className="fixed bottom-2 w-full"
+					onSubmit={(e) => {
+						e.preventDefault();
+						handleSendMessage(); // Handle sending message on form submit
+					}}>
+					<label
+						htmlFor="send"
+						className="mb-2 text-sm font-medium text-gray-900 sr-only">
+						Ask me if you need help
+					</label>
+					<div className="relative">
+						<div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+							<svg
+								className="w-4 h-4 text-gray-500"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 20 20">
+								<path
+									stroke="currentColor"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
+									d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+								/>
+							</svg>
+						</div>
+						<input
+							type="text"
+							id="send"
+							className="block p-4 ps-10 w-[300px] text-sm text-gray-900 rounded-lg bg-gray-50 ring-0 focus:ring-0 focus:outline-none"
+							placeholder="Ask me if you need help about"
+							value={inputMessage}
+							onChange={(e) => setInputMessage(e.target.value)} // Update input field
+							required
+						/>
+
+						<button
+							type="submit"
+							className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
+							Send
+						</button>
+					</div>
+				</form>
 			</div>
 		</>
 	);

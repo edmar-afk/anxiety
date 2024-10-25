@@ -1,4 +1,5 @@
-import Body from "../components/chatbot/Body";import messengerbg from "../assets/svg/messagebg.avif";
+import Body from "../components/chatbot/Body";
+import messengerbg from "../assets/img/chatbot.jpg";
 
 function Chatbot() {
 	return (
