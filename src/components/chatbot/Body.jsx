@@ -1,10 +1,11 @@
-/* eslint-disable no-unused-vars */import { useState, useRef, useEffect } from "react";
+/* eslint-disable no-unused-vars */ import { useState, useRef, useEffect } from "react";
 import Header from "./Header";
 import Sender from "./Sender";
 import Receiver from "./Receiver";
 import questions from "../../assets/choices";
 import api from "../../assets/api";
 import Choices from "./Choices";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
 
 function Body() {
 	const [conversation, setConversation] = useState([]); // State to store conversation
@@ -64,7 +65,6 @@ function Body() {
 
 				{/* Display the conversation between user and bot */}
 				<div className="p-4 overflow-y-auto flex flex-col pt-44 pb-24">
-					
 					{conversation.map((message, index) =>
 						message.sender === "user" ? (
 							<Sender
@@ -103,26 +103,13 @@ function Body() {
 					</label>
 					<div className="relative">
 						<div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-							<svg
-								className="w-4 h-4 text-gray-500"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 20 20">
-								<path
-									stroke="currentColor"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-								/>
-							</svg>
+							<SmartToyIcon className="text-blue-400"/>
 						</div>
 						<input
 							type="text"
 							id="send"
 							className="block p-4 ps-10 w-[300px] text-sm text-gray-900 rounded-lg bg-gray-50 ring-0 focus:ring-0 focus:outline-none"
-							placeholder="Ask me if you need help about"
+							placeholder="Ask me if you need help"
 							value={inputMessage}
 							onChange={(e) => setInputMessage(e.target.value)} // Update input field
 							required
