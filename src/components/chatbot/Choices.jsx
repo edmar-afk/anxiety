@@ -1,4 +1,5 @@
-import React, { useState } from "react";import questions from "../../assets/choices";
+/* eslint-disable react/prop-types */
+import { useState } from "react";import questions from "../../assets/choices";
 
 function Choices({ handleQuestionClick }) {
 	const [hiddenQuestions, setHiddenQuestions] = useState([]);
@@ -11,7 +12,7 @@ function Choices({ handleQuestionClick }) {
 	};
 
 	return (
-		<div className="sticky bottom-16 flex flex-row flex-wrap mb-20 bg-white/60 backdrop-blur-md">
+		<div className="sticky bottom-16 flex flex-row flex-wrap mb-20 bg-white/60 backdrop-blur-md h-44 overflow-y-scroll">
 			{questions.map(
 				(question) =>
 					// Only show questions that are not in hiddenQuestions
