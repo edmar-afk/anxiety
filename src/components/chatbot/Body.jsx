@@ -1,4 +1,5 @@
-/* eslint-disable no-unused-vars */ import { useState, useRef, useEffect } from "react";
+/* eslint-disable no-unused-vars */
+import { useState, useRef, useEffect } from "react";
 import Header from "./Header";
 import Sender from "./Sender";
 import Receiver from "./Receiver";
@@ -27,11 +28,15 @@ function Body() {
 		try {
 			const result = await api.post("/api/chatbot/", { question });
 
-			// Add the bot's response to the conversation with time sent
-			setConversation((prevConversation) => [
-				...prevConversation,
-				{ sender: "bot", content: result.data.answer, timeSent: new Date().toLocaleTimeString() },
-			]);
+			// Simulate a delay for the bot's response
+			setTimeout(() => {
+				// Add the bot's response to the conversation with time sent
+				setConversation((prevConversation) => [
+					...prevConversation,
+					{ sender: "bot", content: result.data.answer, timeSent: new Date().toLocaleTimeString() },
+				]);
+				setLoading(false); // End loading state after the response is added
+			}, 2000); // 2000 milliseconds = 2 seconds
 		} catch (error) {
 			console.error(error);
 			setErrorMessage("Failed to fetch bot response. Please try again.");
@@ -39,8 +44,7 @@ function Body() {
 				...prevConversation,
 				{ sender: "bot", content: "Error fetching response", timeSent: new Date().toLocaleTimeString() },
 			]);
-		} finally {
-			setLoading(false); // End loading state
+			setLoading(false); // Ensure loading state is ended on error
 		}
 	};
 
@@ -59,7 +63,7 @@ function Body() {
 
 	return (
 		<>
-			<div className="flex-1  justify-between flex flex-col h-full">
+			<div className="flex-1 justify-between flex flex-col h-full">
 				<Header />
 				<div className="bg-white/60 w-full h-screen fixed -z-50"></div>
 
@@ -86,7 +90,7 @@ function Body() {
 				{errorMessage && <p className="text-red-500 text-center mb-4">{errorMessage}</p>}
 
 				{/* Display loading indicator when the bot is processing */}
-				{loading && <p className="text-green-500 text-center mb-4">Bot is thinking...</p>}
+				{loading && <p className="text-green-500 text-center mb-4">Chatbot is thinking...</p>}
 
 				<Choices handleQuestionClick={handleQuestionClick} />
 
@@ -103,7 +107,7 @@ function Body() {
 					</label>
 					<div className="relative">
 						<div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-							<SmartToyIcon className="text-blue-400"/>
+							<SmartToyIcon className="text-blue-400" />
 						</div>
 						<input
 							type="text"
