@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react";
 import Header from "./Header";
 import Sender from "./Sender";
 import Receiver from "./Receiver";
-import questions from "../../assets/choices";
 import api from "../../assets/api";
 import Choices from "./Choices";
 import SmartToyIcon from "@mui/icons-material/SmartToy";

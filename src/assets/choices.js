@@ -1,5 +1,4 @@
-const questions = [
-	{ id: 1, question: "What is stress?" },
+export const questions = [	{ id: 1, question: "What is stress?" },
 	{ id: 2, question: "What are common causes of stress?" },
 	{ id: 3, question: "How can deep breathing help reduce stress?" },
 	{ id: 4, question: "Can meditation help manage stress?" },
@@ -32,4 +31,47 @@ const questions = [
 	{ id: 31, question: "How can stress affect my work performance?" },
 	{ id: 32, question: "What are some tips for managing stress at work?" },
 ];
-export default questions;
+
+export const psychological = [
+	{
+		question:
+			"Imagine you're walking through a forest alone, and you come across a fork in the path. Which path would you choose to follow?",
+		choices: [
+			{
+				option: "A Sunny Meadow Path",
+				description:
+					"This path is bright, open, and filled with flowers. It feels peaceful, and you can hear birds singing.",
+				answer:
+					"This choice reflects a cheerful and optimistic personality. You’re drawn to beauty and simplicity, preferring comfort and warmth in life.",
+			},
+			{
+				option: "A Dense Forest Path",
+				description:
+					"This path is shaded, with tall trees around. It's quiet and mysterious, with occasional rays of sunlight breaking through.",
+				answer:
+					"Choosing this path shows that you are introspective and value solitude. You’re comfortable with mystery and enjoy exploring the depths of your thoughts.",
+			},
+			{
+				option: "A Mountainous Trail",
+				description:
+					"This path is rocky and challenging. It leads up a steep mountain with a promise of a breathtaking view at the top.",
+				answer:
+					"This path represents ambition and resilience. You’re someone who isn’t afraid of challenges and are motivated by goals, often pushing yourself to reach new heights.",
+			},
+			{
+				option: "A Winding River Path",
+				description:
+					"This path follows along a gently flowing river. You can hear the water and see fish swimming in the clear river.",
+				answer:
+					"This choice reflects a calm and adaptable nature. You go with the flow and find peace in life’s natural rhythm. You value tranquility and enjoy the journey.",
+			},
+			{
+				option: "A Tunnel Path",
+				description:
+					"This path goes through a dark tunnel, leading to an unknown destination. It feels risky, but there's something intriguing about it.",
+				answer:
+					"Choosing this path shows curiosity and courage. You’re open to taking risks and exploring the unknown. You’re not afraid to step out of your comfort zone to discover new things.",
+			},
+		],
+	},
+];

@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
-import { useState } from "react";import questions from "../../assets/choices";
+/* eslint-disable react/prop-types */import { useState } from "react";
+import { questions } from "../../assets/choices";
 
 function Choices({ handleQuestionClick }) {
 	const [hiddenQuestions, setHiddenQuestions] = useState([]);
