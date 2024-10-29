@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { psychological } from "../../assets/choices";
+import { useState } from "react";import { psychological } from "../../assets/choices";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
+
 function Test() {
 	// State to store the selected answer for each question
 	const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -19,6 +19,7 @@ function Test() {
 
 	const toggleTestType = () => {
 		setTestType((prev) => (prev === "psychological" ? "stress" : "psychological")); // Toggle between test types
+		setSelectedAnswers({}); // Reset the selected answers when toggling test types
 	};
 
 	return (
@@ -28,7 +29,7 @@ function Test() {
 				<p
 					onClick={toggleTestType}
 					className="text-xs flex items-center font-bold">
-					<SwapHorizOutlinedIcon fontSize="small"/> Switch
+					<SwapHorizOutlinedIcon fontSize="small" /> Switch
 				</p>
 			</div>
 
