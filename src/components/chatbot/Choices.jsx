@@ -12,7 +12,7 @@ function Choices({ handleQuestionClick }) {
 	};
 
 	return (
-		<div className="sticky bottom-16 flex flex-row flex-wrap mb-20 bg-white/60 backdrop-blur-md h-52 overflow-y-scroll">
+		<div className="sticky bottom-4 flex flex-row flex-wrap items bg-white/60 backdrop-blur-md h-52 overflow-y-scroll">
 			{questions.map(
 				(question) =>
 					// Only show questions that are not in hiddenQuestions

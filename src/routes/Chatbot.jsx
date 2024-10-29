@@ -1,5 +1,5 @@
 import Body from "../components/chatbot/Body";
-import messengerbg from "../assets/img/chatbot.jpg";
+import messengerbg from "../assets/img/bg.avif";
 
 function Chatbot() {
 	return (
