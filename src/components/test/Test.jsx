@@ -1,6 +1,4 @@
-import { useState } from "react";import { psychological } from "../../assets/choices";
-import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
-
+import { useState } from "react";import { psychological } from "../../assets/choices";import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
 function Test() {
 	// State to store the selected answer for each question
 	const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -44,35 +42,36 @@ function Test() {
 					.map((test, index) => (
 						<div
 							key={index}
-							className="mb-4 bg-blue-600 p-4 rounded">
+							className={`mb-4 p-4 rounded ${testType === "stress" ? "bg-pink-600" : "bg-blue-600"} shadow-2xl`}>
 							<p className="font-bold text-white mb-2">{test.question}</p>
 							{test.choices.map((choice, idx) => {
-								// Show only the selected choice or all choices if none is selected
-								if (selectedAnswers[index] === choice.answer) {
-									return (
-										<button
-											key={idx}
-											className="block w-full text-left bg-blue-400 text-white p-2 rounded mb-2">
-											<b>{choice.option}</b>: {choice.description}
-										</button>
-									);
-								}
-								// Show all choices if no answer has been selected yet
-								if (selectedAnswers[index] === undefined) {
-									return (
-										<button
-											key={idx}
-											className="block w-full text-left bg-blue-500 text-white p-2 rounded mb-2 hover:bg-blue-700"
-											onClick={() => handleChoiceClick(index, choice.answer)}>
-											{choice.option}: {choice.description}
-										</button>
-									);
-								}
-								return null; // Hide other choices if one is selected
+								// Determine button color based on selected answer and test type
+								const buttonClass =
+									selectedAnswers[index] === choice.answer
+										? testType === "stress"
+											? "bg-pink-400"
+											: "bg-blue-400"
+										: selectedAnswers[index] === undefined
+										? testType === "stress"
+											? "bg-pink-900 hover:bg-pink-700"
+											: "bg-blue-500 hover:bg-blue-700"
+										: "hidden";
+
+								return (
+									<button
+										key={idx}
+										className={`block w-full text-left text-white p-2 rounded mb-2 ${buttonClass}`}
+										onClick={() => handleChoiceClick(index, choice.answer)}
+										style={{ display: buttonClass !== "hidden" ? "block" : "none" }}>
+										{choice.option}: {choice.description}
+									</button>
+								);
 							})}
 							{/* Display the selected answer for this question, if any */}
 							{selectedAnswers[index] && (
-								<p className="mt-4 text-white bg-blue-800 p-2 rounded">Answer: {selectedAnswers[index]}</p>
+								<p className={`mt-4 text-white ${testType === "stress" ? "bg-pink-800" : "bg-blue-800"} p-2 rounded`}>
+									Answer: {selectedAnswers[index]}
+								</p>
 							)}
 						</div>
 					))}
