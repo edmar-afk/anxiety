@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";import { useEffect, useState } from "react";
-import botLogo from "../../assets/img/comfortBot.png";
+import bot1 from "../../assets/img/bot1.png";
+import bot2 from "../../assets/img/bot2.png";
 import { Link } from "react-router-dom";
+
 // Messages array
 const messages = [
 	"Feeling overwhelmed today? Let’s find a moment of calm together.",
@@ -18,18 +20,22 @@ const messages = [
 
 function Bot() {
 	const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+	const [currentBotImage, setCurrentBotImage] = useState(bot1);
 
-	// Change message every 10 seconds
+	// Change message and image every 10 seconds
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrentMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
+			setCurrentBotImage((prevImage) => (prevImage === bot1 ? bot2 : bot1)); // Toggle bot image
 		}, 10000); // 10 seconds
 
 		return () => clearInterval(interval);
 	}, []);
 
 	return (
-		<Link to={'/chatbot'} className="flex flex-row flex-wrap items-center justify-evenly shadow-2xl">
+		<Link
+			to={"/chatbot"}
+			className="flex flex-row flex-wrap items-center justify-evenly shadow-2xl">
 			<div className="flex relative overflow-hidden bg-blue-500 rounded-lg items-center w-full mx-4 py-4 shadow-lg">
 				<svg
 					className="absolute bottom-0 left-0 mb-8"
@@ -78,7 +84,7 @@ function Bot() {
 					<img
 						className="relative"
 						width={150}
-						src={botLogo}
+						src={currentBotImage}
 						alt=""
 					/>
 				</div>
