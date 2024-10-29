@@ -23,8 +23,8 @@ function Test() {
 	};
 
 	return (
-		<div className="p-4 my-8">
-			<div className="flex flex-row justify-between items-center mb-4">
+		<div className="p-1 my-8">
+			<div className="flex flex-row justify-between items-center p-4">
 				<p className="font-bold">{testType === "psychological" ? "Psychological Test" : "Stress Test"}</p>
 				<p
 					onClick={toggleTestType}
@@ -33,7 +33,7 @@ function Test() {
 				</p>
 			</div>
 
-			<p className="text-xs mb-4">
+			<p className="text-xs -mt-4 p-4">
 				Here’s a {testType.charAt(0).toUpperCase() + testType.slice(1)} test with five choices. The answer will reflect
 				aspects of your personality based on your choice.
 			</p>
