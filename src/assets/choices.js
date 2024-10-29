@@ -1,5 +1,4 @@
-export const questions = [	{ id: 1, question: "What is stress?" },
-	{ id: 2, question: "What are common causes of stress?" },
+export const questions = [	{ id: 1, question: "What is stress?" },	{ id: 2, question: "What are common causes of stress?" },
 	{ id: 3, question: "How can deep breathing help reduce stress?" },
 	{ id: 4, question: "Can meditation help manage stress?" },
 	{ id: 5, question: "Do we have a record of our student being seen by the guidance counselor for stress?" },
@@ -34,6 +33,7 @@ export const questions = [	{ id: 1, question: "What is stress?" },
 
 export const psychological = [
 	{
+		type: 'psychological',
 		question:
 			"Imagine you're walking through a forest alone, and you come across a fork in the path. Which path would you choose to follow?",
 		choices: [
@@ -71,6 +71,48 @@ export const psychological = [
 					"This path goes through a dark tunnel, leading to an unknown destination. It feels risky, but there's something intriguing about it.",
 				answer:
 					"Choosing this path shows curiosity and courage. You’re open to taking risks and exploring the unknown. You’re not afraid to step out of your comfort zone to discover new things.",
+			},
+		],
+	},
+
+	{
+		type: 'stress',
+		question:
+			"Imagine you're standing at the edge of a cliff overlooking the ocean. You see a storm brewing in the distance. How do you react?",
+		choices: [
+			{
+				option: "I stay calm and take a moment to enjoy the view.",
+				description:
+					"Despite the impending storm, you appreciate the beauty around you, focusing on the moment rather than the potential danger.",
+				answer:
+					"This choice indicates that you have a resilient mindset. You are capable of staying calm under pressure and find value in appreciating the present, even amidst uncertainty.",
+			},
+			{
+				option: "I start looking for a safe place to hide.",
+				description:
+					"You instinctively seek shelter, feeling anxious about the storm approaching and prioritizing your safety.",
+				answer:
+					"This choice reflects a cautious personality. You tend to avoid risks and prefer to prepare for potential dangers, often feeling stressed in uncertain situations.",
+			},
+			{
+				option: "I grab my camera and start capturing the moment.",
+				description:
+					"You feel compelled to document the beauty and intensity of the storm, viewing it as an opportunity for creativity.",
+				answer:
+					"This choice shows that you thrive on challenges and see stressful situations as chances for growth. You’re motivated by creativity and find purpose in expressing yourself, even in difficult times.",
+			},
+			{
+				option: "I turn away and walk back to safety.",
+				description: "You decide that the storm isn't worth the risk and choose to retreat to a place of comfort.",
+				answer:
+					"This choice indicates a preference for security over adventure. You may find stress overwhelming and tend to prioritize your comfort and safety over exploration.",
+			},
+			{
+				option: "I shout out to the ocean, feeling exhilarated by the storm.",
+				description:
+					"You embrace the chaos of the storm, feeling energized by the raw power of nature, expressing your emotions openly.",
+				answer:
+					"This choice suggests that you are passionate and unafraid to confront your feelings. You find excitement in uncertainty and may thrive in dynamic and intense situations.",
 			},
 		],
 	},
