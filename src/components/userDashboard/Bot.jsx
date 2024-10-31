@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";import { useEffect, useState } from "react";
-import bot1 from "../../assets/img/bot1.png";
+import { motion } from "framer-motion";import { useEffect, useState } from "react";import bot1 from "../../assets/img/bot1.png";
 import bot2 from "../../assets/img/bot2.png";
 import { Link } from "react-router-dom";
 
@@ -35,8 +34,8 @@ function Bot() {
 	return (
 		<Link
 			to={"/chatbot"}
-			className="flex flex-row flex-wrap items-center justify-evenly shadow-2xl">
-			<div className="flex relative overflow-hidden bg-blue-500 rounded-lg items-center w-full mx-4 py-4 shadow-lg">
+			className="flex flex-row flex-wrap items-center justify-evenly bg-blue-500 shadow-2xl mx-1">
+			<div className="flex relative overflow-hidden  rounded-lg items-center w-full mx-4 py-4">
 				<svg
 					className="absolute bottom-0 left-0 mb-8"
 					viewBox="0 0 375 283"
@@ -75,7 +74,7 @@ function Bot() {
 						</div>
 					</div>
 					<div
-						className="block absolute w-48 h-48 bottom-0 left-0 -mb-24"
+						className="block absolute w-48 h-48 bottom-12 left-2 -mb-24"
 						style={{
 							background: "radial-gradient(black, transparent 60%)",
 							transform: "rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1)",
@@ -89,6 +88,7 @@ function Bot() {
 					/>
 				</div>
 			</div>
+			<p className="text-sm underline italic mb-3 text-white">Chat with me</p>
 		</Link>
 	);
 }
