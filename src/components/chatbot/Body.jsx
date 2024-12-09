@@ -12,6 +12,7 @@ function Body() {
 	const [loading, setLoading] = useState(false); // Loading state for bot response
 	const [errorMessage, setErrorMessage] = useState(""); // Error message state
 	const bottomRef = useRef(null); // Reference for the bottom of the conversation
+	const synth = useRef(window.speechSynthesis); // Reference for SpeechSynthesis API
 
 	// Handle sending the question to the API
 	const handleQuestionClick = async (question) => {
@@ -54,19 +55,18 @@ function Body() {
 		}
 	};
 
-	// Read the latest bot message aloud using the Web Speech API
+	// Read the latest bot message aloud
 	useEffect(() => {
 		if (conversation.length > 0) {
 			const lastMessage = conversation[conversation.length - 1];
 
 			// If the message is from the bot, read it aloud
 			if (lastMessage.sender === "bot") {
+				if (synth.current.speaking) {
+					synth.current.cancel(); // Stop any ongoing speech
+				}
 				const utterance = new SpeechSynthesisUtterance(lastMessage.content);
-				utterance.lang = "en-US"; // Set the language
-				utterance.pitch = 1; // Optional: Control pitch
-				utterance.rate = 1; // Optional: Control speech rate
-				window.speechSynthesis.cancel(); // Cancel any ongoing speech
-				window.speechSynthesis.speak(utterance);
+				synth.current.speak(utterance);
 			}
 		}
 	}, [conversation]);
@@ -86,15 +86,9 @@ function Body() {
 				<div className="p-4 overflow-y-auto flex flex-col pt-44 pb-24">
 					{conversation.map((message, index) =>
 						message.sender === "user" ? (
-							<Sender
-								key={index}
-								message={message.content}
-							/>
+							<Sender key={index} message={message.content} />
 						) : (
-							<Receiver
-								key={index}
-								message={message.content}
-							/>
+							<Receiver key={index} message={message.content} />
 						)
 					)}
 					{/* Invisible div to maintain scroll position */}
@@ -114,10 +108,9 @@ function Body() {
 					onSubmit={(e) => {
 						e.preventDefault();
 						handleSendMessage(); // Handle sending message on form submit
-					}}>
-					<label
-						htmlFor="send"
-						className="mb-2 text-sm font-medium text-gray-900 sr-only">
+					}}
+				>
+					<label htmlFor="send" className="mb-2 text-sm font-medium text-gray-900 sr-only">
 						Ask me if you need help
 					</label>
 					<div className="relative">
@@ -136,7 +129,8 @@ function Body() {
 
 						<button
 							type="submit"
-							className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
+							className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+						>
 							Send
 						</button>
 					</div>
