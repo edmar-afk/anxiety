@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { useState, useRef, useEffect } from "react";
-import Header from "./Header";
+import { useState, useRef, useEffect } from "react";import Header from "./Header";
 import Sender from "./Sender";
 import Receiver from "./Receiver";
 import api from "../../assets/api";
@@ -13,6 +11,7 @@ function Body() {
 	const [loading, setLoading] = useState(false); // Loading state for bot response
 	const [errorMessage, setErrorMessage] = useState(""); // Error message state
 	const bottomRef = useRef(null); // Reference for the bottom of the conversation
+	const synth = useRef(window.speechSynthesis); // Reference for SpeechSynthesis API
 
 	// Handle sending the question to the API
 	const handleQuestionClick = async (question) => {
@@ -54,6 +53,22 @@ function Body() {
 			setInputMessage(""); // Clear the input field after sending
 		}
 	};
+
+	// Read the latest bot message aloud
+	useEffect(() => {
+		if (conversation.length > 0) {
+			const lastMessage = conversation[conversation.length - 1];
+
+			// If the message is from the bot, read it aloud
+			if (lastMessage.sender === "bot") {
+				if (synth.current.speaking) {
+					synth.current.cancel(); // Stop any ongoing speech
+				}
+				const utterance = new SpeechSynthesisUtterance(lastMessage.content);
+				synth.current.speak(utterance);
+			}
+		}
+	}, [conversation]);
 
 	// Scroll to the bottom when the conversation updates
 	useEffect(() => {
