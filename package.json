@@ -34,7 +34,8 @@
     "react-router-dom": "^6.26.1",
     "react-youtube": "^10.1.0",
     "styled-components": "^6.1.11",
-    "sweetalert2": "^11.12.2"
+    "sweetalert2": "^11.12.2",
+    "vite-plugin-pwa": "^0.21.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
