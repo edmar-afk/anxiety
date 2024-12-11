@@ -146,14 +146,14 @@ export const questions = [
 	},
 	{
 		id: 31,
-		backgroundColor: "bg-orange-900",
-		textColor: "text-white",
+		backgroundColor: "bg-orange-200",
+		textColor: "text-orange-800",
 		question: "How can stress affect my work performance?",
 	},
 	{
 		id: 32,
-		backgroundColor: "bg-orange-700",
-		textColor: "text-white",
+		backgroundColor: "bg-orange-100",
+		textColor: "text-orange-900",
 		question: "What are some tips for managing stress at work?",
 	},
 ];
