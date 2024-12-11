@@ -88,7 +88,7 @@ function Bot() {
 					/>
 				</div>
 			</div>
-			<p className="text-sm underline italic mb-3 text-white">Chat with me</p>
+			<p className="text-sm font-bold mb-3 text-green-200 bg-green-900 px-4 py-1 rounded-2xl shadow-lg animate-bounce">Chat with me</p>
 		</Link>
 	);
 }
